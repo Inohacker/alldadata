@@ -271,7 +271,7 @@ class alldadataApi
      */
     public function bankSuggestions($params = []) {
 
-        if(empty($query)) {
+        if(empty($params)) {
             return ['error' => 'Не передан запрос'];
         }
 
