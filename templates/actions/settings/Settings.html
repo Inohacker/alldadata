@@ -1,0 +1,38 @@
+<h1>Настройки</h1>
+<form method="post" action="?alldadata&module=settings">
+    {$wa->csrf()}
+    {if !empty($count)}
+        <div class="field">
+            <div class="name">Всего запросов за сегодня</div>
+            <div class="value">
+                {$count}
+            </div>
+        </div>
+    {/if}
+    {if !empty($balance)}
+        <div class="field">
+            <div class="name">Ваш баланс в сервисе</div>
+            <div class="value">
+                {$balance|wa_format_amount_currency:'RUB'}
+            </div>
+        </div>
+    {/if}
+    <div class="field">
+        <div class="name">API ключ</div>
+        <div class="value">
+            <input name="token" value="{$token|escape}" required class="long">
+            <br/><span class="hint">Не забудьте подтвердить почтовый адрес в сервисе</span>
+        </div>
+    </div>
+    <div class="field">
+        <div class="name">Secret</div>
+        <div class="value">
+            <input name="secret" value="{$secret|escape}" class="long">
+            <br/><span class="hint">Необходим для стандартизации</span>
+        </div>
+    </div>
+    <div class="field">
+        <input type="submit" name="save" class="button green" value="Сохранить">
+        <span id="s-settings-form-status" style="display:none">Сохранено</span>
+    </div>
+</form>

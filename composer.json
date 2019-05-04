@@ -1,0 +1,8 @@
+{
+    "config": {
+        "vendor-dir": "lib/vendors"
+    },
+    "require": {
+        "jaybizzle/crawler-detect": "1.*"
+    }
+}

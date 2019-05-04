@@ -1,0 +1,132 @@
+<h1>Вся Dadata</h1>
+<p>
+    Приложение реализует практически все методы сервиса Dadata, доступные по API
+</p>
+<p>
+    Для доступа к API необходим API ключ (для стандартизации так же необходим Secret), который Вы можете
+    получить после <a href="http://dadata.ru/" target="_blank">регистрации</a> в разделе личный кабинет.
+    Обратите внимание, для активации ключа API необходимо подтверждение почтового ящика в ЛК
+</p>
+<h2>Методы, доступные в шаблонах</h2>
+<p class="shadowed" style="padding: 10px;">
+    <b>Определение поисковых ботов</b><br/>
+    {literal}{$wa->alldadata->isBot($userAgent)}{/literal}<br/>
+    <span>
+        @param string|null $userAgent если не указан, берется агент пользователя<br/>
+        @return bool
+    </span>
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Геолокация по ip</b>
+    <a href="https://dadata.ru/api/detect_address_by_ip/" target="_blank">Описание</a><br/>
+    {literal}{$wa->alldadata->ipGeoLocation($ip = '', $session = false, $returnPath = 'all')}{/literal}<br/>
+    <span>
+        @param string $ip если не указан, берется ip пользователя<br/>
+        @param bool $session надо ли брать адрес из сессии или пытаться определить. <b>Только для без ip</b><br/>
+        @param string|array $returnPath что именно вернуть в ответе all|data|['city', 'country', etc]<br/>
+        @return array|SimpleXMLElement|string|waNet
+    </span>
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Адрес по kladr_id или fias_id</b>
+    <a href="https://dadata.ru/api/find-address/" target="_blank">Описание</a><br/>
+    {literal}{$wa->alldadata->kladrFiasAddress($query, $returnPath = 'all')}{/literal}<br/>
+    <span>
+        @param string $query <br/>
+        @param string|array $returnPath что именно вернуть в ответе all|data|['city', 'country', etc]<br/>
+        @return array|SimpleXMLElement|string|waNet<br/>
+    </span>
+</p>
+<h2>Методы класса dadataApi</h2>
+<p>Для использования методов класса необходимо проверить наличие приложения dadata, подлючить его окружение и инициализировать класс</p>
+<p class="shadowed" style="padding: 10px;">
+    if(wa()->appExists('alldadata')) {
+        wa('alldadata');
+        $dadata = new alldadataApi();
+        // дальше можно пользоваться методами класса
+    }
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Определение поисковых ботов</b><br/>
+    $alldadata->isBot($userAgent);<br/>
+    <span>
+        @param string|null $userAgent если не указан, берется агент пользователя<br/>
+        @return bool
+    </span>
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Проверка наличия ключа API</b><br/>
+    $alldadata->tokenAvailable();<br/>
+    <span>
+        @return bool
+    </span>
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Проверка наличия secret</b><br/>
+    $alldadata->secretAvailable();<br/>
+    <span>
+        @return bool
+    </span>
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Геолокация по ip</b>
+    <a href="https://dadata.ru/api/detect_address_by_ip/" target="_blank">Описание</a><br/>
+    $alldadata->ipGeoLocation($ip = '', $session = false, $returnPath = 'all');<br/>
+    <span>
+        @param string $ip если не указан, берется ip пользователя<br/>
+        @param bool $session надо ли брать адрес из сессии или пытаться определить. <b>Только для без ip</b><br/>
+        @param string|array $returnPath что именно вернуть в ответе all|data|['city', 'country', etc]<br/>
+        @return array|SimpleXMLElement|string|waNet
+    </span>
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Адрес по kladr_id или fias_id</b>
+    <a href="https://dadata.ru/api/find-address/" target="_blank">Описание</a><br/>
+    $alldadata->kladrFiasAddress($query, $returnPath = 'all');<br/>
+    <span>
+        @param string $query <br/>
+        @param string|array $returnPath что именно вернуть в ответе all|data|['city', 'country', etc]<br/>
+        @return array|SimpleXMLElement|string|waNet<br/>
+    </span>
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Подсказки по адресу</b>
+    <a href="https://confluence.hflabs.ru/pages/viewpage.action?pageId=751730844" target="_blank">Описание</a><br/>
+    $alldadata->addressSuggestions($params = []);
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Подсказки по ФИО</b>
+    <a href="https://confluence.hflabs.ru/pages/viewpage.action?pageId=751730856" target="_blank">Описание</a><br/>
+    $alldadata->fioSuggestions($params = []);
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Подсказки по организациям</b>
+    <a href="https://confluence.hflabs.ru/pages/viewpage.action?pageId=751730862" target="_blank">Описание</a><br/>
+    $alldadata->organizationsSuggestions($params = []);
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Поиск организации по ИНН или ОГРН</b>
+    <a href="https://dadata.ru/api/find-party/" target="_blank">Описание</a><br/>
+    $alldadata->organizationFind($params = []);
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Подсказки по email</b>
+    <a href="https://confluence.hflabs.ru/pages/viewpage.action?pageId=751730873" target="_blank">Описание</a><br/>
+    $alldadata->emailSuggestions($params = []);
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Подсказки по банкам</b>
+    <a href="https://confluence.hflabs.ru/pages/viewpage.action?pageId=751730879" target="_blank">Описание</a><br/>
+    $alldadata->bankSuggestions($params = []);
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Стандартизация по типу</b> <span style="color: red;">Обязательно наличие secret</span>
+    <a href="https://dadata.ru/api/clean/" target="_blank">Описание</a><br/>
+    $alldadata->cleanByType($type = '', $query = '');<br/>
+    @param string $type address|phone|passport|name|email|birthdate|vehicle
+</p>
+<p class="shadowed" style="padding: 10px;">
+    <b>Стандартизация составной записи</b> <span style="color: red;">Обязательно наличие secret</span>
+    <a href="https://dadata.ru/api/clean/" target="_blank">Описание</a><br/>
+    $alldadata->cleanStructure($data = []);
+</p>
