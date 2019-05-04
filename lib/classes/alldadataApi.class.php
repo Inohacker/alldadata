@@ -21,6 +21,7 @@ class alldadataApi
         'bank'                  => '/rs/suggest/bank',
         'post_suggest'          => '/rs/suggest/postal_office',
         'post_find'             => '/rs/findById/postal_office',
+        'address_geolocate'    => '/rs/geolocate/address'
     ];
 
     const CLEAN_API_URL = 'https://dadata.ru/api/';
@@ -77,6 +78,31 @@ class alldadataApi
      */
     public function secretAvailable() {
         return !empty($this->secret);
+    }
+
+    /**
+     * Обратное геокодирование (адрес по координатам)
+     * @see https://dadata.ru/api/geolocate/
+     * @param string $lat
+     * @param string $lon
+     * @return array
+     */
+    public function addressGeolocate($lat = '', $lon = '') {
+
+        if(empty($lat) || empty($lon)) {
+            return ['error' => 'Координаты не заданы'];
+        }
+
+        $data = [
+            'lat' => $lat,
+            'lon' => $lon,
+        ];
+
+        if(!$url = $this->getUrlByMethod('address_geolocate')) {
+            return ['error' => 'Не удалось получить url для запроса'];
+        }
+
+        return $this->apiRequest($url, $data);
     }
 
     /**
