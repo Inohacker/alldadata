@@ -21,7 +21,8 @@ class alldadataApi
         'bank'                  => '/rs/suggest/bank',
         'post_suggest'          => '/rs/suggest/postal_office',
         'post_find'             => '/rs/findById/postal_office',
-        'address_geolocate'    => '/rs/geolocate/address'
+        'address_geolocate'     => '/rs/geolocate/address',
+        'delivery_find_by_id'   => '/rs/findById/delivery',
     ];
 
     const CLEAN_API_URL = 'https://dadata.ru/api/';
@@ -78,6 +79,29 @@ class alldadataApi
      */
     public function secretAvailable() {
         return !empty($this->secret);
+    }
+
+    /**
+     * Идентификатор города в СДЭК
+     * @see https://dadata.ru/api/delivery/
+     * @param string $query ФИАС или КЛАДР код города
+     * @return array
+     */
+    public function deliveryFindById($query) {
+
+        if(empty($query)) {
+            return ['error' => 'Не передан запрос'];
+        }
+
+        if(!$url = $this->getUrlByMethod('delivery_find_by_id')) {
+            return ['error' => 'Не удалось получить url для запроса'];
+        }
+
+        $data = [
+            'query' => $query,
+        ];
+
+        return $this->apiRequest($url, $data);
     }
 
     /**
