@@ -313,6 +313,8 @@ class alldadataApi
         return $this->apiRequest($url, $params);
     }
 
+
+
     /**
      * Подсказки по банкам
      * @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=751730879
