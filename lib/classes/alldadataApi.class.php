@@ -27,7 +27,7 @@ class alldadataApi
 
     const CLEAN_API_URL = 'https://dadata.ru/api/';
     const CLEAN_API_VERSION = 'v2';
-    const CLEAN_URL = self::CLEAN_API_URL . self::CLEAN_API_VERSION . '/clean/';
+    const CLEAN_URL = self::CLEAN_API_URL . self::CLEAN_API_VERSION . '/clean';
 
     const AVAILABLE_CLEAN_FIELDS = [
         'address',
