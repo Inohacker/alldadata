@@ -27,7 +27,7 @@ class alldadataApi
 
     const CLEAN_API_URL = 'https://dadata.ru/api/';
     const CLEAN_API_VERSION = 'v2';
-    const CLEAN_URL = self::CLEAN_API_URL . self::CLEAN_API_VERSION . '/clean';
+    const CLEAN_URL = self::CLEAN_API_URL . self::CLEAN_API_VERSION . '/clean/';
 
     const AVAILABLE_CLEAN_FIELDS = [
         'address',
@@ -47,7 +47,7 @@ class alldadataApi
         'format' => waNet::FORMAT_JSON,
     ];
 
-    private $token = '', $secret = '';
+    private $token, $secret;
 
     public function __construct() {
         $appSettings = new waAppSettingsModel();
@@ -363,7 +363,7 @@ class alldadataApi
      * @param string $query
      * @return array|SimpleXMLElement|string|waNet
      */
-    public function cleanByType($type = '', $query = '') {		
+    public function cleanByType($type = '', $query = '') {
 
         if(empty($type) || !in_array($type, self::AVAILABLE_CLEAN_FIELDS)) {
             return ['error' => 'Не удалось определить метод стандартизации'];
@@ -460,7 +460,7 @@ class alldadataApi
      * @return array|SimpleXMLElement|string|waNet
      */
     private function apiRequest($url, $data = [], $secretNeeded = false, $requestMethod = waNet::METHOD_POST) {
-		
+
         $response = [];
 
         if(!$this->tokenAvailable()) {
